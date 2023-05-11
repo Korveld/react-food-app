@@ -1,4 +1,4 @@
-Example ecommerce react app
+## Dummy Ecommerce React App
 
 To build and run a project:
 

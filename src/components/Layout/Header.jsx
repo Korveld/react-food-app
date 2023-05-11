@@ -1,15 +1,16 @@
 import classes from './Header.module.scss'
 import mealsImage from '../../assets/meals.jpg'
+import HeaderCartButton from "./HeaderCartButton.jsx";
 
 const Header = props => {
   return (
     <>
-      <header>
+      <header className={classes.header}>
         <h1>ReactMeals</h1>
-        <button>Cart</button>
+        <HeaderCartButton></HeaderCartButton>
       </header>
-      <div>
-        <img src={mealsImage} alt=""/>
+      <div className={classes['main-image']}>
+        <img src={mealsImage} alt="A table full of delicious food!"/>
       </div>
     </>
   )
