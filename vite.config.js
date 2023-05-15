@@ -9,15 +9,15 @@ export default defineConfig({
     ViteImageOptimizer({
       png: {
         // https://sharp.pixelplumbing.com/api-output#png
-        quality: 80,
+        quality: 89,
       },
       jpeg: {
         // https://sharp.pixelplumbing.com/api-output#jpeg
-        quality: 80,
+        quality: 89,
       },
       jpg: {
         // https://sharp.pixelplumbing.com/api-output#jpeg
-        quality: 80,
+        quality: 89,
       },
     }),
   ],
