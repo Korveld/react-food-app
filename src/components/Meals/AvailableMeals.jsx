@@ -1,49 +1,54 @@
 import classes from './AvailableMeals.module.scss'
 import Card from "../UI/Card.jsx";
 import MealItem from "./MealItem/MealItem.jsx";
-
-const DUMMY_MEALS = [
-  {
-    id: 'm1',
-    name: 'Sushi',
-    description: 'Finest fish and veggies',
-    price: 22.99,
-  },
-  {
-    id: 'm2',
-    name: 'Schnitzel',
-    description: 'A german specialty!',
-    price: 16.5,
-  },
-  {
-    id: 'm3',
-    name: 'Barbecue Burger',
-    description: 'American, raw, meaty',
-    price: 12.99,
-  },
-  {
-    id: 'm4',
-    name: 'Green Bowl',
-    description: 'Healthy...and green...',
-    price: 18.99,
-  },
-]
+import {useEffect, useState} from "react";
+import axios from 'axios'
 
 const AvailableMeals = () => {
-  const mealsList = DUMMY_MEALS.map((meal) => (
-    <MealItem
-      key={meal.id}
-      id={meal.id}
-      name={meal.name}
-      description={meal.description}
-      price={meal.price}
-    />
-  ))
+  const [meals, setMeals] = useState()
+  const [isLoading, setIsLoading] = useState(false)
+
+  useEffect(() => {
+    setIsLoading(true)
+    const fetchMeals = async () => {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_FIREBASE_URL_MEALS}`);
+        const responseData = await response.data
+
+        const loadedMeals = []
+
+        for (const key in responseData) {
+          loadedMeals.push({
+            id: key,
+            name: responseData[key].name,
+            description: responseData[key].description,
+            price: responseData[key].price,
+          })
+        }
+
+        setMeals(loadedMeals)
+        setIsLoading(false)
+      } catch (error) {
+        console.log(Object.keys(error), error.message)
+      }
+    }
+
+    fetchMeals()
+  }, []);
 
   return (
     <section className={classes.meals}>
       <Card>
-        <ul>{mealsList}</ul>
+        {isLoading && <p>Loading...</p>}
+        <ul>{meals && !isLoading && meals.map((meal) => (
+          <MealItem
+            key={meal.id}
+            id={meal.id}
+            name={meal.name}
+            description={meal.description}
+            price={meal.price}
+          />
+        ))}</ul>
       </Card>
     </section>
   )
