@@ -1,5 +1,6 @@
 import CartContext from "./cart-context.jsx";
 import {useReducer} from "react";
+import PropTypes from "prop-types";
 
 const defaultCartState = {
   items: [],
@@ -98,6 +99,10 @@ const CartProvider = props => {
   return <CartContext.Provider value={cartContext}>
     {props.children}
   </CartContext.Provider>
+}
+
+CartProvider.propTypes = {
+  children: PropTypes.any,
 }
 
 export default CartProvider
