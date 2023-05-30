@@ -2,6 +2,7 @@ import classes from './HeaderCartButton.module.scss'
 import CartIcon from "../Cart/CartIcon.jsx";
 import {useContext, useEffect, useState} from "react";
 import CartContext from "../../store/cart-context.jsx";
+import PropTypes from "prop-types";
 
 const HeaderCartButton = (props) => {
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false)
@@ -41,6 +42,10 @@ const HeaderCartButton = (props) => {
       </span>
     </button>
   )
+}
+
+HeaderCartButton.propTypes = {
+  onShowCart: PropTypes.any,
 }
 
 export default HeaderCartButton

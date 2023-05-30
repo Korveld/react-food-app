@@ -54,6 +54,10 @@ const cartReducer = (state, action) => {
   if (action.type === 'ADD_STORAGE') {
     return JSON.parse(localStorage.cart)
   }
+  if (action.type === 'CLEAR') {
+    localStorage.removeItem('cart');
+    return defaultCartState
+  }
   return defaultCartState
 }
 
@@ -75,9 +79,11 @@ const CartProvider = props => {
   }
 
   const addStorageHandler = () => {
-    dispatchCartAction({
-      type: 'ADD_STORAGE'
-    })
+    dispatchCartAction({type: 'ADD_STORAGE'})
+  }
+
+  const clearCartHandler = () => {
+    dispatchCartAction({type: 'CLEAR'})
   }
 
   const cartContext = {
@@ -85,7 +91,8 @@ const CartProvider = props => {
     totalAmount: cartState.totalAmount,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCartHandler,
-    addStorage: addStorageHandler
+    addStorage: addStorageHandler,
+    clearCart: clearCartHandler
   }
 
   return <CartContext.Provider value={cartContext}>

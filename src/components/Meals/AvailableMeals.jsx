@@ -4,34 +4,16 @@ import MealItem from "./MealItem/MealItem.jsx";
 import {useEffect, useState} from "react";
 import axios from 'axios'
 
-/*import { collection, getDocs } from "firebase/firestore";
-import {db} from '../../utils/firebase.js';*/
-
 const AvailableMeals = () => {
   const [meals, setMeals] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [httpError, setHttpError] = useState()
-
-  /*useEffect(() => {
-    const fetchPost = async () => {
-      await getDocs(collection(db, "meals"))
-        .then((querySnapshot)=> {
-          const newData = querySnapshot.docs
-            .map((doc) => ({...doc.data(), id:doc.id }));
-          setMeals(newData);
-          console.log(newData);
-        })
-    }
-
-    fetchPost();
-  }, []);*/
 
   useEffect(() => {
     setIsLoading(true)
     const fetchMeals = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_FIREBASE_URL_MEALS}`);
-        // const response = await axios.get('https://react-food-order-app-a7c1a-default-rtdb.europe-west1.firebasedatabase.app/meals');
         const responseData = await response.data
 
         const loadedMeals = []
@@ -48,7 +30,7 @@ const AvailableMeals = () => {
         setMeals(loadedMeals)
         setIsLoading(false)
       } catch (error) {
-        console.log(Object.keys(error), error.message)
+        // console.log(Object.keys(error), error.message)
         setIsLoading(false)
         setHttpError(error.message)
       }
