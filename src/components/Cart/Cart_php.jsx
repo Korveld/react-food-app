@@ -33,10 +33,6 @@ const Cart = (props) => {
 
   const submitOrderHandler = async (userData) => {
     setIsSubmitting(true)
-    /*await axios.post(`${import.meta.env.VITE_FIREBASE_URL_ORDERS}`, {
-      user: userData,
-      orderedItems: cartCtx.items
-    })*/
     await axios.all([
       axios.post(`${import.meta.env.VITE_FIREBASE_URL_ORDERS}`, {
         user: userData,
